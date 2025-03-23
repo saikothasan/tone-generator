@@ -31,6 +31,7 @@ import {
   PanelLeft,
   PanelRight,
   Globe,
+  Keyboard,
 } from "lucide-react"
 import {
   Select,
@@ -49,8 +50,8 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useToast } from "@/hooks/use-toast"
-import FrequencyVisualizer from "./frequency-visualizer"
-import WaveformVisualizer from "./waveform-visualizer"
+import FrequencyVisualizer from "@/components/frequency-visualizer"
+import WaveformVisualizer from "@/components/waveform-visualizer"
 import { useTheme } from "next-themes"
 import KeyboardShortcuts from "./keyboard-shortcuts"
 import ShareLink from "./share-link"
@@ -528,7 +529,9 @@ export default function ToneGenerator() {
         if (prev <= 1) {
           // Timer complete
           stopTone()
-          clearInterval(timerIntervalRef.current!)
+          if (timerIntervalRef.current) {
+            clearInterval(timerIntervalRef.current)
+          }
           setTimerActive(false)
           toast({
             title: "Timer Complete",
@@ -666,7 +669,7 @@ export default function ToneGenerator() {
 
   // Detect fundamental frequency from microphone input
   const detectFrequency = () => {
-    if (!microphoneAnalyserRef.current || !microphoneActive) return
+    if (!microphoneAnalyserRef.current || !microphoneActive || !audioContextRef.current) return
 
     const analyser = microphoneAnalyserRef.current
     const bufferLength = analyser.frequencyBinCount
@@ -675,7 +678,7 @@ export default function ToneGenerator() {
     analyser.getFloatTimeDomainData(dataArray)
 
     // Use autocorrelation to find the fundamental frequency
-    const sampleRate = audioContextRef.current!.sampleRate
+    const sampleRate = audioContextRef.current.sampleRate
     let bestCorrelation = 0
     let bestFreq = 0
 
