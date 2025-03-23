@@ -1853,7 +1853,8 @@ export default function ToneGenerator() {
                             <div className="text-sm text-muted-foreground">
                               {favorite.frequency} Hz, {favorite.waveType}
                               {favorite.binauralBeat && `, Beat: ${favorite.binauralBeat} Hz`}
-                              {favorite.pan !== 0 &&
+                              {favorite.pan !== undefined &&
+                                favorite.pan !== 0 &&
                                 `, Pan: ${favorite.pan < 0 ? "Left" : "Right"} ${Math.abs(favorite.pan * 100).toFixed(0)}%`}
                             </div>
                           </div>
