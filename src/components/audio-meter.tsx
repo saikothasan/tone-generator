@@ -57,8 +57,6 @@ export default function AudioMeter({ analyser, isActive, width = 30, height = 15
       // Create gradient
       const gradient = ctx.createLinearGradient(0, height, 0, 0)
       gradient.addColorStop(0, "#4ade80") // green
-      gradient.addColorStop(0.6, height, 0, 0)
-      gradient.addColorStop(0, "#4ade80") // green
       gradient.addColorStop(0.6, "#facc15") // yellow
       gradient.addColorStop(1, "#ef4444") // red
 
