@@ -1,5 +1,6 @@
 import ToneGenerator from "@/components/tone-generator"
 import type { Metadata } from "next"
+import TelegramBanner from "@/components/telegram-banner"
 
 export const metadata: Metadata = {
   title: "Professional Tone Generator | Audio Frequency Tool",
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main className="min-h-screen">
+      <TelegramBanner />
       <ToneGenerator />
     </main>
   )
